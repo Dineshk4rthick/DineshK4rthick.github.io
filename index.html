@@ -7,13 +7,13 @@
   <meta name="description" content="Explore Dinesh Karthick’s Azure infrastructure, cloud engineering experience and applied AI projects from Chennai.">
   <meta property="og:title" content="Dinesh Karthick · Coastal Ops"><meta property="og:description" content="A Chennai field guide to my cloud engineering and applied AI work.">
   <link rel="icon" href="assets/dk.svg"><link rel="preload" as="image" href="assets/coast.webp"><link rel="preload" as="font" href="assets/display.ttf" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css?v=soundtrack"><link rel="stylesheet" href="cinema.css?v=audio-start">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css?v=soundtrack"><link rel="stylesheet" href="cinema.css?v=fm-ident">
   <script>
     if ((!location.hash || location.hash === "#overview") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.documentElement.classList.add("intro-pending");
       setTimeout(() => document.documentElement.classList.remove("intro-pending"), 8500);
     }
-  </script><script src="audio.js?v=audio-start" defer></script><script src="cinema.js?v=audio-start" defer></script><script src="app.js?v=soundtrack" defer></script>
+  </script><script src="audio.js?v=fm-ident" defer></script><script src="cinema.js?v=fm-ident" defer></script><script src="app.js?v=soundtrack" defer></script>
 </head>
 <body>
 <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -36,14 +36,22 @@
   <a class="contact-nav" href="#contact"><svg><use href="#mail"/></svg>Contact</a>
   <button id="menu-button" class="menu-button" aria-controls="nav" aria-expanded="false" aria-label="Open navigation"><svg><use href="#menu"/></svg></button>
 </div></header>
-<button id="start-audio" type="button" hidden><svg aria-hidden="true"><use href="#speaker"/></svg> Start audio</button>
+<button id="launch-drive" type="button" hidden aria-label="Turn on audio and play the drive-in">
+  <span class="station-ident" aria-hidden="true">
+    <span class="signal-brand">Coastal FM</span>
+    <span class="signal-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <strong>Turn on audio</strong>
+    <span class="signal-action"><svg><use href="#speaker"/></svg> Tap or click to listen</span>
+    <span class="signal-timer"></span>
+  </span>
+</button>
 <main>
 <section id="overview" class="hero" aria-labelledby="hero-title">
   <div class="hero-stage" aria-hidden="true">
     <img src="assets/coast.webp" alt="" fetchpriority="high">
     <video id="drive-film" data-film="assets/film/drive.mp4?v=arrival" poster="assets/film/coast-road.webp?v=arrival" playsinline muted preload="none" tabindex="-1"></video>
   </div>
-  <div id="drive" hidden><button type="button" id="launch-drive"><svg aria-hidden="true"><use href="#speaker"/></svg>Play intro with sound</button><button type="button" id="skip-drive">Skip intro</button></div>
+  <div id="drive" hidden><button type="button" id="skip-drive">Skip intro</button></div>
   <div class="shell hero-inner"><div class="hero-copy">
     <div class="eyebrow hero-kicker"><i></i> Player profile</div>
     <h1 id="hero-title"><span>Dinesh</span><span>Karthick</span></h1>

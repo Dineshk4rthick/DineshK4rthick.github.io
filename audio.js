@@ -4,7 +4,6 @@
 const coastalAudio = (() => {
   const master = document.querySelector("[data-cinema-sound]");
   const radio = document.querySelector("#radio-button");
-  const start = document.querySelector("#start-audio");
   const launch = document.querySelector("#launch-drive");
   const buffers = new Map();
   const failed = new Set();
@@ -39,7 +38,6 @@ const coastalAudio = (() => {
     radio.setAttribute("aria-pressed", String(fmPlaying));
     radio.setAttribute("aria-label", radio.dataset.action === "start" ? "Start Coastal FM" : tuned ? "Turn Coastal FM off" : "Turn Coastal FM on");
     document.querySelector("#radio-state").textContent = fmPlaying ? "On" : tuned && enabled ? "Ready" : "Off";
-    start.hidden = !needsStart || document.hidden;
     const ready = canStartIntro();
     if (ready !== lastReady) {
       lastReady = ready;
@@ -112,7 +110,7 @@ const coastalAudio = (() => {
   function wake() {
     if (!enabled || document.hidden) return;
     const AudioEngine = window.AudioContext || window.webkitAudioContext;
-    if (!AudioEngine) { start.hidden = true; return; }
+    if (!AudioEngine) return;
     if (!context) {
       context = new AudioEngine();
       radioGain = context.createGain();
@@ -162,7 +160,6 @@ const coastalAudio = (() => {
     pressedAction.delete(button);
     return action === "start";
   }
-  start.addEventListener("click", wake);
   launch.addEventListener("click", wake);
   master.addEventListener("click", () => {
     if (requestedStart(master)) return wake();
@@ -183,7 +180,7 @@ const coastalAudio = (() => {
   });
   function gesture(event) {
     if (!event.isTrusted || (context?.state === "running" && !failed.size) ||
-        event.target.closest?.("[data-cinema-sound],#radio-button,#start-audio,#launch-drive,#skip-drive")) return;
+        event.target.closest?.("[data-cinema-sound],#radio-button,#launch-drive,#skip-drive")) return;
     wake();
   }
   for (const event of ["pointerdown","pointerup","touchend","keydown","click"])
@@ -192,5 +189,5 @@ const coastalAudio = (() => {
   window.addEventListener("pageshow", wake);
   updateControls();
   wake();
-  return {select, canStartIntro, prepareIntro: () => { if (enabled) prepare("drive"); }};
+  return {select, canStartIntro, needsGesture: () => enabled && context && context.state !== "running", prepareIntro: () => { if (enabled) prepare("drive"); }};
 })();

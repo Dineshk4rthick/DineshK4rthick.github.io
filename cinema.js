@@ -5,6 +5,8 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const drive = document.querySelector("#drive");
   const intro = document.querySelector("#drive-film");
+  const welcome = document.querySelector("#launch-drive");
+  let welcomeDeadline;
   const brief = document.querySelector("#brief");
   const panels = [...document.querySelectorAll(".mission-panel")];
   const cueTimes = {policy: 0.89, memory: 1.42, metro: 1.24, zoo: 1.12, showroom: 0.77};
@@ -63,6 +65,7 @@
   }
 
   function finishIntro() {
+    dismissWelcome();
     clearTimeout(startupTimeout);
     if (active === intro) releaseActive();
     drive.hidden = true;
@@ -102,22 +105,34 @@
     clearTimeout(startupTimeout);
   }
 
-  function startIntro() {
+  function dismissWelcome() {
+    clearTimeout(welcomeDeadline);
+    welcome.remove();
+  }
+  function startIntro(firstVisit = false) {
     if (!drive.hidden) return;
     drive.hidden = false;
     root.classList.remove("intro-pending");
     root.classList.add("drive-waiting");
     coastalAudio.prepareIntro();
-    runReadyIntro();
+    if (!firstVisit || coastalAudio.canStartIntro()) return beginIntro();
+    if (coastalAudio.needsGesture()) {
+      welcome.hidden = false;
+      if (document.activeElement === document.body) welcome.focus({preventScroll:true});
+    }
+    welcomeDeadline = setTimeout(beginIntro, 3000);
   }
-  function runReadyIntro() {
-    if (!root.classList.contains("drive-waiting") || !coastalAudio.canStartIntro() || document.hidden) return;
+  function beginIntro() {
+    if (!root.classList.contains("drive-waiting") || document.hidden) return;
+    dismissWelcome();
     root.classList.remove("drive-waiting");
     root.classList.add("drive-active");
     startTitles();
     play(intro);
   }
-  document.addEventListener("coastal-audio-readychange", runReadyIntro);
+  document.addEventListener("coastal-audio-readychange", () => {
+    if (coastalAudio.canStartIntro()) beginIntro();
+  });
 
   intro.addEventListener("ended", finishIntro);
   intro.addEventListener("error", () => { if (!drive.hidden) finishIntro(); });
@@ -249,6 +264,6 @@
     queueViewport();
   });
   root.classList.add("cinema-ready");
-  if (root.classList.contains("intro-pending")) startIntro();
-  else queueViewport();
+  if (root.classList.contains("intro-pending")) startIntro(true);
+  else { dismissWelcome(); queueViewport(); }
 })();
