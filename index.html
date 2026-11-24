@@ -7,13 +7,13 @@
   <meta name="description" content="Explore Dinesh Karthick’s Azure infrastructure, cloud engineering experience and applied AI projects from Chennai.">
   <meta property="og:title" content="Dinesh Karthick · Coastal Ops"><meta property="og:description" content="A Chennai field guide to my cloud engineering and applied AI work.">
   <link rel="icon" href="assets/dk.svg"><link rel="preload" as="image" href="assets/coast.webp"><link rel="preload" as="font" href="assets/display.ttf" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css?v=arrival"><link rel="stylesheet" href="cinema.css?v=arrival">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css?v=soundtrack"><link rel="stylesheet" href="cinema.css?v=soundtrack">
   <script>
     if ((!location.hash || location.hash === "#overview") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.documentElement.classList.add("intro-pending");
       setTimeout(() => document.documentElement.classList.remove("intro-pending"), 8500);
     }
-  </script><script src="cinema.js?v=arrival" defer></script><script src="app.js" defer></script>
+  </script><script src="audio.js?v=soundtrack" defer></script><script src="cinema.js?v=soundtrack" defer></script><script src="app.js?v=soundtrack" defer></script>
 </head>
 <body>
 <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -36,6 +36,7 @@
   <a class="contact-nav" href="#contact"><svg><use href="#mail"/></svg>Contact</a>
   <button id="menu-button" class="menu-button" aria-controls="nav" aria-expanded="false" aria-label="Open navigation"><svg><use href="#menu"/></svg></button>
 </div></header>
+<button id="start-audio" type="button" hidden><svg aria-hidden="true"><use href="#speaker"/></svg> Start audio</button>
 <main>
 <section id="overview" class="hero" aria-labelledby="hero-title">
   <div class="hero-stage" aria-hidden="true">
@@ -55,7 +56,7 @@
   <div class="hud-item"><svg><use href="#pin"/></svg><span>Chennai, India</span></div>
   <button class="replay" id="replay-drive" type="button"><span aria-hidden="true">▶</span> Replay drive-in</button>
   <div class="hud-item time"><svg><use href="#clock"/></svg><span id="local-time">IST · UTC+5:30</span></div>
-  <button class="radio" id="radio-button" aria-pressed="false" aria-label="Play Coastal FM instrumental"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Coastal FM <span id="radio-state">Off</span></button>
+  <button class="radio" id="radio-button" aria-pressed="true" aria-label="Turn Coastal FM off"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Coastal FM <span id="radio-state">On</span></button>
 </div></div>
 <section id="missions" class="mission-reel" aria-labelledby="mission-title">
   <div class="shell mission-index"><div><div class="eyebrow"><i></i> Selected projects</div>
@@ -92,7 +93,7 @@
 <article class="mission-panel metro" data-platform="aws" aria-labelledby="title-metro">
     <div class="scene-frame" aria-hidden="true">
       <img class="scene-image" src="assets/metro.webp" alt="" loading="lazy" decoding="async">
-      <video class="scene-film" data-film="assets/film/metro.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+      <video class="scene-film" data-film="assets/film/metro.mp4?v=announcement" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
     </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 03</span><span>AWS · Voice applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>

@@ -7,38 +7,55 @@
   const intro = document.querySelector("#drive-film");
   const brief = document.querySelector("#brief");
   const panels = [...document.querySelectorAll(".mission-panel")];
-  const soundButtons = [...document.querySelectorAll("[data-cinema-sound]")];
   const cueTimes = {policy: 0.89, memory: 1.42, metro: 1.24, zoo: 1.12, showroom: 0.77};
   let active = null;
   let playbackId = 0;
   let startupTimeout;
   let explicitReplay = false;
   let scrollFrame;
-  let sound = true;
-  let waitingForGesture = false;
-  try {
-    const stored = localStorage.getItem("coastal-cinema-sound") ?? sessionStorage.getItem("coastal-cinema-sound");
-    sound = stored !== "off";
-  } catch { /* Browsing without storage still supports sound for this visit. */ }
+  let titleFrame;
+  let titleAnimations = [];
 
-  function setSound(enabled, save) {
-    sound = enabled;
-    if (save) {
-      try { localStorage.setItem("coastal-cinema-sound", enabled ? "on" : "off"); } catch {}
-    }
-    if (active) active.muted = !enabled;
-    for (const button of soundButtons) {
-      button.setAttribute("aria-pressed", String(enabled));
-      const label = enabled ? "Mute cinematic sound" : "Enable cinematic sound";
-      button.setAttribute("aria-label", label);
-      button.title = label;
-      button.querySelector("span").textContent = enabled ? "Sound on" : "Sound off";
-    }
+  function stopTitles() {
+    cancelAnimationFrame(titleFrame);
+    for (const animation of titleAnimations) animation.cancel();
+    titleAnimations = [];
   }
-  setSound(sound, false);
 
+  function startTitles() {
+    stopTitles();
+    if (reduced.matches) return;
+    const title = document.querySelector(".hero-copy");
+    // The slugs enter from the left as the car enters from the right.
+    const cues = [
+      [".hero-kicker", 70, 680, 28],
+      ["h1 span:first-child", 460, 1430, 110],
+      ["h1 span:last-child", 990, 1610, 145],
+      [".hero-role", 1960, 820, 42],
+      [".intro", 2510, 830, 26],
+      [".hero-actions", 3070, 750, 16],
+    ];
+    for (const [selector, delay, duration, distance] of cues) {
+      const el = title.querySelector(selector);
+      const headline = el.parentElement.tagName === "H1";
+      const frames = [
+        {opacity:0, transform:`translateX(-${distance}px) skewX(-8deg)`, clipPath:"inset(-35% 100% -35% -15%)", filter:headline ? "blur(3px)" : "none"},
+        {opacity:1, transform:"translateX(0) skewX(0deg)", clipPath:"inset(-35% -15% -35% -15%)", filter:headline ? "blur(0px)" : "none"}
+      ];
+      const animation = el.animate(frames, {delay, duration, fill:"both", easing:"cubic-bezier(.18,.76,.22,1)"});
+      animation.pause();
+      animation.currentTime = 0;
+      titleAnimations.push(animation);
+    }
+    function trackCar() {
+      for (const animation of titleAnimations) animation.currentTime = intro.currentTime * 1000;
+      titleFrame = requestAnimationFrame(trackCar);
+    }
+    titleFrame = requestAnimationFrame(trackCar);
+  }
   function releaseActive() {
     playbackId++;
+    coastalAudio.select(null);
     if (!active) return;
     active.pause();
     active.muted = true;
@@ -50,7 +67,7 @@
     if (active === intro) releaseActive();
     drive.hidden = true;
     root.classList.remove("intro-pending", "drive-active");
-    root.classList.add("hero-reveal");
+    stopTitles();
     queueViewport();
   }
 
@@ -68,8 +85,8 @@
     releaseActive();
     active = video;
     const id = playbackId;
-    video.muted = !sound || waitingForGesture;
-    video.volume = 0.77;
+    video.muted = true;
+    coastalAudio.select(video);
     if (!video.hasAttribute("src")) video.src = video.dataset.film;
     if (video.readyState) video.currentTime = 0;
     startupTimeout = setTimeout(() => {
@@ -77,49 +94,20 @@
     }, 4200);
     try {
       await video.play();
-    } catch (error) {
-      if (id !== playbackId || active !== video) return;
-      if (error.name !== "NotAllowedError" || video.muted) return showStill(video);
-      waitingForGesture = true;
-      video.muted = true;
-      try { await video.play(); } catch { if (id === playbackId) showStill(video); }
+    } catch {
+      if (id === playbackId) showStill(video);
+      return;
     }
     if (id !== playbackId || active !== video) return;
     clearTimeout(startupTimeout);
   }
 
-  function unlockSound(event) {
-    if (!event.isTrusted || !sound || !waitingForGesture || event.target.closest?.("[data-cinema-sound]")) return;
-    waitingForGesture = false;
-    resumeAudibly();
-  }
-
-  function resumeAudibly() {
-    const video = active;
-    if (!video || video.ended || brief.open || document.hidden) return;
-    video.muted = !sound;
-    video.play().catch(error => {
-      if (video !== active || !sound || error.name !== "NotAllowedError") return;
-      waitingForGesture = true;
-      video.muted = true;
-      video.play().catch(() => {});
-    });
-  }
-  document.addEventListener("click", unlockSound, true);
-  document.addEventListener("keydown", unlockSound, true);
-  for (const button of soundButtons) button.addEventListener("click", () => {
-    waitingForGesture = false;
-    setSound(!sound, true);
-    resumeAudibly();
-  });
-
   function startIntro() {
     if (!drive.hidden) return;
-    root.classList.remove("hero-reveal");
     drive.hidden = false;
     root.classList.add("drive-active");
     root.classList.remove("intro-pending");
-    document.dispatchEvent(new Event("coastal-drive-start"));
+    startTitles();
     play(intro);
   }
 

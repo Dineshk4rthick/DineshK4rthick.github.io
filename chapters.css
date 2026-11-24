@@ -102,8 +102,6 @@
 .time { order: 0; }
 .replay { order: 1; }
 .radio { order: 2; }
-.hero-reveal .hero-copy { animation: reveal-name .58s ease-out both; }
-@keyframes reveal-name { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 680px) {
   .hud-row { flex-wrap: wrap; gap: 0 12px; padding-block: 6px; }
   .replay { border: 0; padding: 5px 0; font-size: .75rem; }
