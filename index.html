@@ -1,465 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinesh Karthick - CS Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101019">
+  <title>Dinesh Karthick | Cloud Engineering &amp; Applied AI</title>
+  <meta name="description" content="Explore Dinesh Karthick’s Azure infrastructure, cloud engineering experience and applied AI projects from Chennai.">
+  <meta property="og:title" content="Dinesh Karthick · Coastal Ops"><meta property="og:description" content="A Chennai field guide to my cloud engineering and applied AI work.">
+  <link rel="icon" href="assets/dk.svg"><link rel="preload" as="image" href="assets/coast.webp"><link rel="preload" as="font" href="assets/display.ttf" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css"><link rel="stylesheet" href="cinema.css">
+  <script>
+    if ((!location.hash || location.hash === "#overview") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("intro-pending");
+      setTimeout(() => document.documentElement.classList.remove("intro-pending"), 8500);
+    }
+  </script><script src="cinema.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="bg-elements">
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
-        <div class="floating-shape shape-4"></div>
-        <div class="floating-shape shape-5"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar glass">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">Dinesh Karthick</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link">Experience</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content glass">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="title-line">Hello, I'm</span>
-                        <span class="title-name">Dinesh Karthick</span>
-                        <span class="title-role">Computer Science Student</span>
-                    </h1>
-                    <p class="hero-description">
-                        Passionate Computer Science Engineering student at SRMIST with skills in Web development, Agentic AI, 
-                        Python, UI/UX. Tech enthusiast passionate about solving problems and building impactful projects.
-                        Driven to create meaningful solutions in dynamic environments.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="dk.pdf" target="_blank" class="btn-primary tactile">
-                            <i class="fas fa-file-pdf"></i>
-                            View My Resume
-                        </a>
-                        <button class="btn-secondary tactile" onclick="scrollToSection('contact')">
-                            <i class="fas fa-envelope"></i>
-                            Get In Touch
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="hero-image-container">
-                        <div class="profile-image glass">
-                            <img src="images/profile.jpg" alt="Dinesh Karthick" class="profile-photo">
-                        </div>
-                        <div class="floating-tech tech-1">
-                            <i class="fab fa-js-square"></i>
-                        </div>
-                        <div class="floating-tech tech-2">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <div class="floating-tech tech-3">
-                            <i class="fab fa-react"></i>
-                        </div>
-                        <div class="floating-tech tech-4">
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text glass tactile">
-                    <h3>Who Am I?</h3>
-                    <p>
-                        I'm a passionate Computer Science Engineering student at SRMIST with skills in Web development, 
-                        Agentic AI, Python, and UI/UX. As a tech enthusiast, I'm passionate about solving problems and 
-                        building impactful projects that make a difference.
-                    </p>
-                    <p>
-                        Driven to create meaningful solutions in dynamic environments, I believe in leveraging technology 
-                        to solve real-world challenges. My journey involves exploring cutting-edge technologies and 
-                        developing solutions that create lasting impact.
-                    </p>
-                    <div class="stats">
-                        <div class="stat-item glass">
-                            <div class="stat-number">15+</div>
-                            <div class="stat-label">Projects</div>
-                        </div>
-                        <div class="stat-item glass">
-                            <div class="stat-number">3+</div>
-                            <div class="stat-label">Years Learning</div>
-                        </div>
-                        <div class="stat-item glass">
-                            <div class="stat-number">8+</div>
-                            <div class="stat-label">Technologies</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="code-snippet glass tactile">
-                        <div class="code-header">
-                            <div class="dots">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                            <span>about-me.js</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code><span class="keyword">const</span> <span class="variable">aboutMe</span> = {
-  <span class="property">name</span>: <span class="string">"Dinesh Karthick"</span>,
-  <span class="property">role</span>: <span class="string">"CS Student"</span>,
-  <span class="property">location</span>: <span class="string">"Chennai,India"</span>,
-  <span class="property">interests</span>: [
-    <span class="string">"Web Development"</span>,
-    <span class="string">"Machine Learning"</span>,
-    <span class="string">"Agentic Ai"</span>
-    
-  ],
-  <span class="property">currentlyLearning</span>: <span class="string">"Machine Learning, Deep Learning
-    and Neural Networks"</span>,
-
-};</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                
-                <!-- Experience 1 - Right side -->
-                <div class="timeline-item right" data-year="2025">
-                    <div class="timeline-content glass tactile">
-                        <div class="timeline-year">2025</div>
-                        <h3 class="experience-title">Full Stack Developer (Intern)</h3>
-                        <h4 class="company-name">Asraaz Business Solutions</h4>
-                        <p class="experience-description">
-                            Developed diverse, responsive web solutions for various clients, creating platforms for travel booking, eCommerce, and professional Dashboard/ERP portal. (Jan - July)
-                        </p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">HTML, CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">PostgreSql</span>
-                        </div>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <!-- Experience 2 - Left side -->
-                <div class="timeline-item left" data-year="2024">
-                    <div class="timeline-content glass tactile">
-                        <div class="timeline-year">2024</div>
-                        <h3 class="experience-title">ML Internship Trainee</h3>
-                        <h4 class="company-name">NSIC</h4>
-                        <p class="experience-description">
-                           I learned to apply machine learning techniques using Python, TensorFlow, and Scikit-learn to build, train, and deploy predictive models from complex datasets.
-                        </p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Scikit-learn</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">PyTorch</span>
-                        </div>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Technologies</h2>
-            <div class="skills-grid">
-                <div class="skill-category glass tactile">
-                    <div class="category-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Programming Languages</h3>
-                    <div class="skill-items">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">TypeScript</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category glass tactile">
-                    <div class="category-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <div class="skill-items">
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">Javascript</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">PostgreSql</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category glass tactile">
-                    <div class="category-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI/ML & Data Analytics</h3>
-                    <div class="skill-items">
-                        
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Scikit-learn</span>
-                        
-                    </div>
-                </div>
-                
-                <div class="skill-category glass tactile">
-                    <div class="category-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Tools & Platforms</h3>
-                    <div class="skill-items">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Pycharm</span>
-                        <span class="skill-tag">n8n</span>
-                        <span class="skill-tag">VS Code</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                
-                <!-- Project 1: Smart Notes AI -->
-                <div class="project-showcase">
-                    <div class="project-preview">
-                        <!-- New Slideshow Approach -->
-                        <div class="slideshow-container">
-                            <!-- Slide Images with Fallback -->
-                            <div class="slides-wrapper">
-                                <div class="slide-item" data-slide="1">
-                                    <div class="project-visual">
-                                        <img src="images/img1.jpeg" alt="Smart Notes AI - Interface" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="2">
-                                    <div class="project-visual">
-                                        <img src="images/img2.jpeg" alt="Smart Notes AI - Features" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="3">
-                                    <div class="project-visual">
-                                        <img src="images/img3.jpeg" alt="Smart Notes AI - Results" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="4">
-                                    <div class="project-visual">
-                                        <img src="images/img4.jpeg" alt="Smart Notes AI - Dashboard" class="slide-image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info glass">
-                        <h3> AI-Powered WhatsApp Metro Ticket Booking</h3>
-                        <p> Developed an automated WhatsApp bot using n8n, Python (Flask, Whisper), and Twilio to enable metro ticket booking
- via text or “voice messages”.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">n8n</span>
-                            <span class="tech-tag">Python(Flask)</span>
-                            <span class="tech-tag">OpenAI Whisper</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="https://github.com/Dineshk4rthick/ai-prowered-whatsapp-metro-ticket-booking" target="_blank" class="btn-view-code">View Code</a>
-                            <a href="https://github.com/Dineshk4rthick/ai-prowered-whatsapp-metro-ticket-booking" target="_blank" class="btn-live-demo">Live Demo</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: Recipe Generator -->
-                <div class="project-showcase reverse">
-                    <div class="project-info glass">
-                        <h3>Web & Full-Stack Development Projects</h3>
-                        <p> Built multiple responsive websites HTML, CSS, JavaScript, React, and TypeScript during internship. Developed full
-stack applications like a Zoo Management System and Admin Panel with Node.js and PostgreSQL, implementing
- RESTful APIs, authentication, and CRUD operations</p>
-                        
-                        <div class="project-actions">
-                            <a href="https://github.com/Dineshk4rthick" target="_blank" class="btn-view-code">View Code</a>
-                            <a href="https://github.com/Dineshk4rthick" target="_blank" class="btn-live-demo">Live Demo</a>
-                        </div>
-                    </div>
-                    <div class="project-preview">
-                        <!-- Recipe Generator Slideshow -->
-                        <div class="slideshow-container" id="slideshow-2">
-                            <!-- Slide Images -->
-                            <div class="slides-wrapper">
-                                <div class="slide-item" data-slide="1">
-                                    <div class="project-visual">
-                                        <img src="images/img5.png" alt="Recipe Generator - Interface" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="2">
-                                    <div class="project-visual">
-                                        <img src="images/img6.png" alt="Recipe Generator - Features" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="3">
-                                    <div class="project-visual">
-                                        <img src="images/img7.png" alt="Recipe Generator - Results" class="slide-image">
-                                    </div>
-                                </div>
-                                
-                                <div class="slide-item" data-slide="4">
-                                    <div class="project-visual">
-                                        <img src="images/img8.png" alt="Recipe Generator - Dashboard" class="slide-image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <div class="social-cards-grid">
-                <!-- LinkedIn Card -->
-                <div class="social-card glass tactile">
-                    <div class="social-icon linkedin">
-                        <i class="fab fa-linkedin-in"></i>
-                    </div>
-                    <h3>LinkedIn</h3>
-                    <p>Connect with me professionally</p>
-                    <a href="https://www.linkedin.com/in/dinesh-karthick-459b5a258/" target="_blank" class="social-btn">Connect</a>
-                </div>
-
-                <!-- GitHub Card -->
-                <div class="social-card glass tactile">
-                    <div class="social-icon github">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h3>GitHub</h3>
-                    <p>Check out my code repositories</p>
-                    <a href="https://github.com/Dineshk4rthick" target="_blank" class="social-btn">Follow</a>
-                </div>
-
-                <!-- Email Card -->
-                <div class="social-card glass tactile">
-                    <div class="social-icon email">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p>Drop me a message anytime</p>
-                    <a href="mailto:dk4579@srmist.edu.in" class="social-btn">Message</a>
-                </div>
-
-                <!-- X (Twitter) Card -->
-                <div class="social-card glass tactile">
-                    <div class="social-icon twitter">
-                        <img src="images/x.jpg" alt="X Logo" class="x-logo">
-                    </div>
-                    <h3>X</h3>
-                    <p>Follow me on X</p>
-                    <a href="https://x.com/Dineshk4rthick" target="_blank" class="social-btn">Follow</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Dinesh Karthick</h3>
-                    <p>Passionate Computer Science Engineering student at SRMIST with skills in Web development, Agentic AI, Python, UI/UX. Driven to create meaningful solutions in dynamic environments.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect</h3>
-                    <div class="social-links">
-                        <a href="https://github.com/Dineshk4rthick" target="_blank" class="social-link tactile"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/dinesh-karthick-459b5a258/" target="_blank" class="social-link tactile"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://x.com/Dineshk4rthick" target="_blank" class="social-link tactile x-social-link"><img src="images/x.jpg" alt="X Logo" class="x-logo-small"></a>
-                        <a href="mailto:dk4579@srmist.edu.in" class="social-link tactile"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="speaker" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3zM16 9c2 1 2 5 0 6m3-9c4 3 4 9 0 12"/></symbol>
+<symbol id="repeat" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="radio" viewBox="0 0 24 24"><path d="M4 5 20 2M3 7h18v13H3zM6 11h6M6 14h5"/><circle cx="16.5" cy="14" r="2.3"/></symbol>
+<symbol id="folder" viewBox="0 0 24 24"><path d="M2 6h7l3 3h10l-3 11H2zM2 10h17"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="1"/><path d="m3 6 9 7 9-7"/></symbol>
+<symbol id="crosshair" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/><circle cx="12" cy="12" r="1"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3z"/></symbol>
+<symbol id="menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+</defs></svg>
+<a class="skip" href="#missions">Skip to projects</a>
+<header><div class="shell navrow">
+  <a class="brand" href="#overview" aria-label="Dinesh Karthick home"><span class="monogram">DK</span><span>COASTAL OPS</span></a>
+  <nav id="nav" aria-label="Main navigation"><a href="#overview" aria-current="location">Overview</a><a href="#missions">Missions</a><a href="#loadout">Loadout</a><a href="#profile">Profile</a></nav>
+  <button class="sound-switch" data-cinema-sound aria-pressed="false" aria-label="Enable cinematic sound" title="Enable cinematic sound"><svg aria-hidden="true"><use href="#speaker"/></svg><span>Sound off</span></button>
+  <a class="contact-nav" href="#contact"><svg><use href="#mail"/></svg>Contact</a>
+  <button id="menu-button" class="menu-button" aria-controls="nav" aria-expanded="false" aria-label="Open navigation"><svg><use href="#menu"/></svg></button>
+</div></header>
+<main>
+<section id="overview" class="hero" aria-labelledby="hero-title">
+  <div class="shell hero-inner"><div class="hero-copy">
+    <div class="eyebrow hero-kicker"><i></i> Player profile</div>
+    <h1 id="hero-title"><span>Dinesh</span><span>Karthick</span></h1>
+    <p class="hero-role">Cloud Engineer <b>/</b> AI Builder</p>
+    <p class="intro">I build on Azure, from the network and identity layer to the AI apps that run on top.</p>
+    <div class="hero-actions"><a class="action primary" href="#missions"><svg><use href="#crosshair"/></svg>Explore missions</a><a class="action ghost" href="#profile"><svg><use href="#user"/></svg>View profile</a></div>
+  </div></div>
+</section>
+<div class="hud"><div class="shell hud-row">
+  <div class="hud-item"><svg><use href="#pin"/></svg><span>Chennai, India</span></div>
+  <button class="replay" id="replay-drive" type="button"><span aria-hidden="true">▶</span> Replay drive-in</button>
+  <div class="hud-item time"><svg><use href="#clock"/></svg><span id="local-time">IST · UTC+5:30</span></div>
+  <button class="radio" id="radio-button" aria-pressed="false" aria-label="Play Coastal FM instrumental"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Coastal FM <span id="radio-state">Off</span></button>
+</div></div>
+<section id="missions" class="mission-reel" aria-labelledby="mission-title">
+  <div class="shell mission-index"><div><div class="eyebrow"><i></i> Selected projects</div>
+  <h2 id="mission-title">Mission files<span>.</span></h2></div>
+  <div class="filters" role="group" aria-label="Filter projects"><button aria-pressed="true" data-filter="all">All missions</button><button aria-pressed="false" data-filter="azure">Azure</button><button aria-pressed="false" data-filter="aws">AWS</button><button aria-pressed="false" data-filter="software">Software</button></div></div>
+  <p class="sr" id="filter-status" aria-live="polite"></p><article class="mission-panel policy" data-platform="azure" aria-labelledby="title-policy">
+    <img class="scene-image" src="assets/policy.webp" alt="" loading="lazy" decoding="async">
+    <video class="scene-film" data-film="assets/film/policy.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="shell mission-inner">
+      <div class="scene-slate"><span>Mission file / 01</span><span>Azure · Retrieval-augmented AI</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
+      <div class="mission-text"><p class="scene-stack">Azure AI Search / Foundry / FastAPI</p>
+        <h3 id="title-policy">Contoso<br><em>PolicyAssistant</em></h3>
+        <p class="mission-description">When an employee asks about sick leave, which policy should an assistant cite? I built a retrieval service that finds the passage and names its source.</p>
+        <button class="action primary" type="button" data-mission="policy" aria-label="Read Contoso PolicyAssistant mission brief"><svg aria-hidden="true"><use href="#folder"/></svg>Open mission brief</button>
+      </div>
+      <div class="scene-foot"><span>26 unit tests</span><span>8 policy documents</span></div>
+    </div></article>
+<article class="mission-panel memory" data-platform="aws" aria-labelledby="title-memory">
+    <img class="scene-image" src="assets/memory.webp" alt="" loading="lazy" decoding="async">
+    <video class="scene-film" data-film="assets/film/memory.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="shell mission-inner">
+      <div class="scene-slate"><span>Mission file / 02</span><span>AWS · Serverless AI</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
+      <div class="mission-text"><p class="scene-stack">Bedrock / Lambda / DynamoDB</p>
+        <h3 id="title-memory">Bedrock<br><em>Memory Assistant</em></h3>
+        <p class="mission-description">I gave a conversational assistant three layers of memory so it can pick up yesterday’s conversation without resending the entire transcript.</p>
+        <button class="action primary" type="button" data-mission="memory" aria-label="Read Bedrock Memory Assistant mission brief"><svg aria-hidden="true"><use href="#folder"/></svg>Open mission brief</button>
+      </div>
+      <div class="scene-foot"><span>3 memory layers</span><span>2 model routes</span></div>
+    </div></article>
+<article class="mission-panel metro" data-platform="aws" aria-labelledby="title-metro">
+    <img class="scene-image" src="assets/metro.webp" alt="" loading="lazy" decoding="async">
+    <video class="scene-film" data-film="assets/film/metro.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="shell mission-inner">
+      <div class="scene-slate"><span>Mission file / 03</span><span>AWS · Voice applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
+      <div class="mission-text"><p class="scene-stack">Whisper / Twilio / EC2</p>
+        <h3 id="title-metro">Chennai Metro<br><em>Voice Tickets</em></h3>
+        <p class="mission-description">A rider sends a voice note in Tamil, Telugu, Hindi or English. My booking prototype works out the fare and replies with a QR ticket on WhatsApp.</p>
+        <button class="action primary" type="button" data-mission="metro" aria-label="Read Chennai Metro Voice Tickets mission brief"><svg aria-hidden="true"><use href="#folder"/></svg>Open mission brief</button>
+      </div>
+      <div class="scene-foot"><span>4 languages</span><span>24 stations</span></div>
+    </div></article>
+<article class="mission-panel zoo" data-platform="software" aria-labelledby="title-zoo">
+    <img class="scene-image" src="assets/zoo.webp" alt="" loading="lazy" decoding="async">
+    <video class="scene-film" data-film="assets/film/zoo.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="shell mission-inner">
+      <div class="scene-slate"><span>Mission file / 04</span><span>Full-stack · Database applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
+      <div class="mission-text"><p class="scene-stack">Node.js / PostgreSQL / JavaScript</p>
+        <h3 id="title-zoo">Zootopia<br><em>Zoo Management</em></h3>
+        <p class="mission-description">A web application that brings animal records, staff and visitor pages together on a PostgreSQL database.</p>
+        <button class="action primary" type="button" data-mission="zoo" aria-label="Read Zootopia Zoo Management mission brief"><svg aria-hidden="true"><use href="#folder"/></svg>Open mission brief</button>
+      </div>
+      <div class="scene-foot"><span>Web application</span><span>Relational data</span></div>
+    </div></article>
+<article class="mission-panel showroom" data-platform="software" aria-labelledby="title-showroom">
+    <img class="scene-image" src="assets/showroom.webp" alt="" loading="lazy" decoding="async">
+    <video class="scene-film" data-film="assets/film/showroom.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="shell mission-inner">
+      <div class="scene-slate"><span>Mission file / 05</span><span>Desktop · Database applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
+      <div class="mission-text"><p class="scene-stack">Python / Tkinter / SQLite</p>
+        <h3 id="title-showroom">Car Showroom<br><em>Management</em></h3>
+        <p class="mission-description">A desktop application for editing dealership records and pulling reports from related tables. Transactions keep edits consistent.</p>
+        <button class="action primary" type="button" data-mission="showroom" aria-label="Read Car Showroom Management mission brief"><svg aria-hidden="true"><use href="#folder"/></svg>Open mission brief</button>
+      </div>
+      <div class="scene-foot"><span>Desktop application</span><span>SQL reporting</span></div>
+    </div></article>
+</section>
+<section id="loadout" class="content-section inset"><div class="shell split">
+  <div><div class="eyebrow"><i></i> Technical skills</div><h2>Loadout<span>.</span></h2><p class="section-intro">My core toolkit for cloud infrastructure and applied AI, followed by the languages, databases and interfaces I use to build the rest of an application.</p></div>
+  <div class="skills"><details open><summary>Azure infrastructure</summary><p>Virtual networks, NSGs, Private Endpoints and Private DNS for network isolation. Entra ID, RBAC, managed identities and Key Vault for access control. Azure Monitor, Log Analytics, KQL and VM backup for day-to-day operations.</p></details>
+<details><summary>AWS infrastructure</summary><p>EC2 for hosted services, Lambda for serverless execution, S3 for objects and DynamoDB for application state. IAM, VPC, Route 53, Elastic Load Balancing and CloudWatch for access, networking and monitoring.</p></details>
+<details><summary>DevOps &amp; infrastructure as code</summary><p>GitHub Actions, Docker, OIDC federation, pytest and post-deployment smoke tests. Bicep, ARM templates and Terraform for infrastructure, with Azure CLI, PowerShell and Bash for automation.</p></details>
+<details><summary>AI &amp; machine learning</summary><p>Microsoft Foundry, Azure AI Search and Amazon Bedrock for grounded assistants. Hybrid retrieval, embeddings and evaluation datasets for RAG. Whisper for speech, and scikit-learn, PyTorch and TensorFlow for machine learning.</p></details>
+<details><summary>Web &amp; mobile development</summary><p>Python, FastAPI, Flask and Node.js for services. React, Next.js, TypeScript, JavaScript, HTML and CSS for the web. React Native and Expo for mobile apps, maps and location services.</p></details>
+<details><summary>Databases &amp; data analysis</summary><p>SQL, PostgreSQL, SQLite, Firebase Realtime Database and DynamoDB. pandas and NumPy for data preparation, LightGBM and Cleanlab for modeling and label audits, and Streamlit and Dash for interactive analysis.</p></details>
+<details><summary>Systems &amp; interface design</summary><p>Linux, Windows Server, operating systems and network troubleshooting. Figma for interface design and Tkinter for Python desktop applications.</p></details></div></div></section>
+<section id="profile" class="content-section"><div class="shell split">
+  <div><div class="eyebrow"><i></i> Experience &amp; education</div><h2>Player profile<span>.</span></h2><p class="section-intro">I’m Dinesh Karthick M S, a computer science student in Chennai. Building client websites got me interested in what happens after deployment. That curiosity took me into Azure networking, identity and operations.</p>
+  <div class="edu"><strong>SRM Institute of Science and Technology</strong><span>B.Tech, Computer Science &amp; Engineering</span><small>2023–2027 &nbsp; / &nbsp; CGPA 9.0 of 10</small></div></div>
+  <div class="timeline">
+  <article><small>Aug – Oct 2026</small><h3>Cloud Engineering Intern</h3><b>Coromandel International Ltd.</b><p>Configured segmented Azure networks, managed identities and private access to services. Investigated DNS and authentication issues, built monitoring queries and documented recovery procedures.</p></article>
+  <article><small>Jan – Jul 2025</small><h3>Web Developer Intern</h3><b>Asraaz Business Solutions</b><p>Delivered client websites and admin dashboards with React, Node.js and PostgreSQL, including role-based workflows and REST APIs.</p></article>
+  <article><small>2023 – 2024</small><h3>Co-Founder &amp; Technical Lead</h3><b>Airosphere</b><p>Led website delivery in a four-person team working with small businesses.</p></article></div>
+</div></section>
+<section id="contact" class="contact"><div class="shell contact-inner"><div><div class="eyebrow"><i></i> Contact</div><h2>Get in touch<span>.</span></h2><p>Have an Azure or cloud engineering role in mind? Email me the details.</p></div>
+<div class="channels"><a class="email" href="mailto:m.s.dineshkarthick2005@gmail.com"><svg><use href="#mail"/></svg>m.s.dineshkarthick2005@gmail.com</a><div><a href="https://www.linkedin.com/in/dinesh-karthick-459b5a258/">LinkedIn</a><a href="https://github.com/Dineshk4rthick">GitHub</a></div></div></div></section>
+</main>
+<footer><div class="shell"><span>© 2026 Dinesh Karthick M S</span><a href="#overview">Back to overview</a></div></footer>
+<dialog id="brief" aria-labelledby="brief-title"><div class="brief-art"><img id="brief-image" alt=""><button id="close-brief" aria-label="Close mission brief" autofocus>×</button></div><div class="brief-copy"><div class="eyebrow" id="brief-label"></div><h2 id="brief-title"></h2><div id="brief-content"></div></div></dialog>
+<dialog id="drive" aria-label="Coastal drive-in animation">
+  <video id="drive-film" data-film="assets/film/drive.mp4" poster="assets/film/coast-road.webp" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+  <div class="drive-top"><button data-cinema-sound aria-label="Enable cinematic sound" aria-pressed="false"><svg aria-hidden="true"><use href="#speaker"/></svg><span>Sound off</span></button><button type="button" id="skip-drive">Skip intro</button></div>
+</dialog>
+</body></html>

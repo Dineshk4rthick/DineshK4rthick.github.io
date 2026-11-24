@@ -1,0 +1,150 @@
+.mission-index {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 38px 29px;
+}
+.mission-index h2 { margin-top: 4px; }
+.mission-panel {
+  --accent: #9ee4ff;
+  position: relative;
+  isolation: isolate;
+  border-block-start: 1px solid #746475;
+  overflow: hidden;
+  background: #10121a;
+}
+.mission-panel.memory { --accent: #a1f4cf; }
+.mission-panel.metro { --accent: #ffba76; }
+.mission-panel.zoo { --accent: #e4d57f; }
+.mission-panel.showroom { --accent: #87ece0; }
+.scene-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 49%;
+  z-index: -2;
+}
+.mission-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #0a0c17c9 0%, #0b0d1777 42%, transparent 72%),
+    linear-gradient(0deg, #090911ec, #0c0b173d 37%, transparent 72%, #0c0b1577);
+}
+.mission-inner {
+  min-height: calc(100vh - 65px);
+  min-height: calc(100svh - 65px);
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(24px, 4.5vh, 60px) 22px;
+}
+.scene-slate, .scene-stack, .scene-foot, .drive-top, .drive-track, .drive-bottom button {
+  font: 700 .81rem/1.45 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.scene-slate { display: flex; align-items: center; gap: 14px; }
+.scene-slate span:first-child {
+  color: #181520;
+  background: var(--accent);
+  padding: 4px 10px;
+  transform: skew(-5deg);
+}
+.scene-slate span:last-child {
+  color: #fff7ed;
+  background: #0e101ac9;
+  padding: 4px 9px;
+}
+.mission-text { margin-top: auto; max-width: 690px; padding: clamp(90px, 19vh, 260px) 0 34px; }
+.scene-stack { color: var(--accent); margin: 0 0 12px; text-shadow: 0 2px 6px #07050a; }
+.mission-text h3 {
+  font: italic 900 clamp(3.6rem, 7.7vw, 8.4rem)/.86 var(--display);
+  text-transform: uppercase;
+  letter-spacing: -.028em;
+  margin: 0;
+  text-shadow: 3px 4px 0 #10101cc9;
+}
+.mission-text h3 em { color: var(--accent); }
+.mission-description {
+  max-width: 510px;
+  margin: 20px 0;
+  font-size: clamp(1rem, 1.27vw, 1.2rem);
+  line-height: 1.55;
+  color: #fff6ed;
+  text-shadow: 0 1px 4px #141019;
+}
+.mission-text .primary { background: var(--accent); }
+.scene-foot {
+  border-top: 1px solid #ffeff04a;
+  padding-top: 14px;
+  display: flex;
+  gap: 13px;
+  color: #f0e9ed;
+  font-size: .76rem;
+}
+.scene-foot span + span { border-left: 1px solid #b7a9b2; padding-left: 13px; }
+.replay {
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: inherit;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 1px solid #51444e;
+  padding-left: 22px;
+}
+.replay span { color: var(--pink); }
+.replay:hover { color: var(--pink); }
+.time { order: 0; }
+.replay { order: 1; }
+.radio { order: 2; }
+.intro-pending body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #30233b url("assets/film/coast-road.webp") center/cover;
+  pointer-events: none;
+}
+#drive {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  position: fixed;
+  inset: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  background: #292031 url("assets/film/coast-road.webp") center/cover no-repeat;
+}
+#drive::backdrop { background: #181320; backdrop-filter: none; }
+.hero-reveal .hero-copy { animation: reveal-name .58s ease-out both; }
+@keyframes reveal-name { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 680px) {
+  .hud-row { flex-wrap: wrap; gap: 0 12px; padding-block: 6px; }
+  .replay { border: 0; padding: 5px 0; font-size: .75rem; }
+  .time { display: none; }
+  .mission-index { display: block; padding-block: 26px 22px; }
+  .mission-index .filters button { padding: 7px 12px; }
+  .mission-inner { min-height: calc(100svh - 58px); padding-block: 20px; }
+  .scene-slate { align-items: start; gap: 6px; flex-wrap: wrap; font-size: .75rem; }
+  .mission-text { padding: 150px 0 25px; }
+  .mission-text h3 { font-size: clamp(2.85rem, 12.3vw, 5.4rem); }
+  .mission-description { margin: 15px 0 19px; }
+  .scene-stack { font-size: .75rem; }
+  .mission-panel::before { background: linear-gradient(0deg, #0c0b14f7 0%, #100f19d9 29%, #10111c40 62%, #11122316 75%, #17132177); }
+  .scene-image { object-position: center 40%; }
+  .showroom .scene-image, .zoo .scene-image { object-position: 74% center; }
+}
+@media(max-width: 380px) {
+  .hud-row { gap: 0 6px; }
+}
+@media(prefers-reduced-motion: reduce) {
+}
