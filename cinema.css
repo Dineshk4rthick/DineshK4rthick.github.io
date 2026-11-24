@@ -14,9 +14,7 @@
 .mission-panel[data-playback="complete"] .scene-film { opacity: 1; }
 .mission-panel[data-playback="playing"] .scene-image,
 .mission-panel[data-playback="complete"] .scene-image { visibility: hidden; }
-.cinema-ready .scene-film, .cinema-ready .scene-image {
-  transform: translateY(var(--drift, 0px)) scale(1.055);
-}
+
 .scene-slate span:nth-child(2) { color: #fff7ed; background: #0e101ac9; padding: 4px 9px; }
 .scene-replay, .sound-switch, #drive button {
   display: inline-flex;
@@ -32,14 +30,10 @@
 .scene-replay:hover, .sound-switch:hover, #drive button:hover { color: var(--pink); border-color: var(--pink); }
 .scene-replay svg, .sound-switch svg { width: 17px; height: 17px; }
 .sound-switch { padding: 6px 11px; font-size: .85rem; white-space: nowrap; }
+.sound-switch { position: relative; }
+.sound-switch[aria-pressed="false"] svg { opacity: .55; }
 .sound-switch[aria-pressed="true"], #drive button[aria-pressed="true"] { color: var(--mint); }
 .navrow { gap: clamp(11px, 2vw, 30px); }
-#drive-film { width: 100%; height: 100%; object-fit: cover; object-position: 50% 63%; display: block; }
-#drive { transition: opacity .35s ease; }
-#drive.leaving { opacity: 0; pointer-events: none; }
-#drive.leaving::backdrop { opacity: 0; }
-#drive::backdrop { background: transparent; }
-.drive-top { position: absolute; top: max(20px, env(safe-area-inset-top)); inset-inline: 5%; display: flex; justify-content: space-between; }
 #drive button { padding: 9px 14px; color: var(--paper); font-size: .9rem; font-weight: 650; }
 .sound-credit { display: block!important; width: fit-content; font-size: .8rem; }
 @media (prefers-reduced-motion: no-preference) {
@@ -71,4 +65,60 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .cinema-ready .scene-film, .cinema-ready .scene-image { transform: none; }
+}
+
+/* Use the same camera gate for the arrival shot and its painted end frame. */
+.hero { background: #251b30; }
+.hero-stage { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.hero-stage > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 62%; }
+#drive-film { opacity: 0; }
+.intro-pending #drive-film, .drive-active #drive-film { opacity: 1; }
+.intro-pending .hero-copy, .drive-active .hero-copy { visibility: hidden; }
+#drive { position: absolute; top: 18px; right: 5%; z-index: 2; }
+.mission-panel { background: var(--wash) center / cover, #15131c; }
+.mission-panel { scroll-margin-top: -10px; }
+.policy { --wash: url("assets/film/policy-wash.webp"); }
+.memory { --wash: url("assets/film/memory-wash.webp"); }
+.metro { --wash: url("assets/film/metro-wash.webp"); }
+.zoo { --wash: url("assets/film/zoo-wash.webp"); }
+.showroom { --wash: url("assets/film/showroom-wash.webp"); }
+.mission-panel::before {
+  z-index: -2;
+  background: linear-gradient(90deg, #0f101bef, #10111dc4 37%, #13131d38 68%, transparent);
+}
+.scene-frame {
+  position: absolute;
+  inset: 0 0 0 auto;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  max-width: 59%;
+  z-index: -1;
+  mask-image: linear-gradient(90deg, transparent, black 14%);
+}
+.zoo .scene-frame, .showroom .scene-frame { aspect-ratio: 2; max-width: 69%; }
+.mission-panel .scene-frame > * { object-fit: contain; object-position: center; }
+.mission-inner { padding-block: clamp(20px, 4vh, 48px) 18px; }
+.mission-text { width: 43%; padding: clamp(24px, 6vh, 90px) 0; margin-block: auto; }
+.mission-text h3 { font-size: clamp(3rem, min(6.1vw, 10.8vh), 7.1rem); }
+.scene-foot { width: fit-content; }
+.scene-slate { position: relative; }
+.brief-art img { height: auto; max-height: 42svh; object-fit: contain; background: #181620; }
+@media (max-width: 680px) {
+  .mission-panel { scroll-margin-top: -4px; }
+  .hero-stage { height: 53%; }
+  .hero-stage > * { object-position: 84% center; }
+  .mission-panel:not([hidden]) { display: flex; flex-direction: column; }
+  .mission-panel .mission-inner { display: contents; }
+  .mission-panel .scene-frame {
+    position: relative; inset: auto; order: 1;
+    width: 100%; max-width: none; height: auto; mask-image: none;
+  }
+  .scene-slate, .mission-text, .scene-foot { width: 89%; margin-inline: auto; }
+  .scene-slate { order: 0; display: grid; grid-template-columns: max-content minmax(0,1fr) auto; padding-block: 12px; }
+  .scene-slate span:nth-child(2) { max-width: none; justify-self: start; }
+  .mission-text { order: 2; padding-block: 24px 18px; }
+  .mission-text h3 { font-size: clamp(2.85rem, 12vw, 5rem); }
+  .scene-foot { order: 3; padding-block: 12px 18px; }
+  .mission-panel::before { background: linear-gradient(#14131ab8, #14131aea); }
 }

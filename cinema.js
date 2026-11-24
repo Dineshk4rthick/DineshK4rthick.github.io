@@ -14,18 +14,17 @@
   let startupTimeout;
   let explicitReplay = false;
   let scrollFrame;
-  let sound = false;
-  let tryAudibleIntro = true;
+  let sound = true;
+  let waitingForGesture = false;
   try {
-    const stored = sessionStorage.getItem("coastal-cinema-sound");
-    sound = stored === "on";
-    tryAudibleIntro = stored !== "off";
+    const stored = localStorage.getItem("coastal-cinema-sound") ?? sessionStorage.getItem("coastal-cinema-sound");
+    sound = stored !== "off";
   } catch { /* Browsing without storage still supports sound for this visit. */ }
 
   function setSound(enabled, save) {
     sound = enabled;
     if (save) {
-      try { sessionStorage.setItem("coastal-cinema-sound", enabled ? "on" : "off"); } catch {}
+      try { localStorage.setItem("coastal-cinema-sound", enabled ? "on" : "off"); } catch {}
     }
     if (active) active.muted = !enabled;
     for (const button of soundButtons) {
@@ -49,9 +48,8 @@
   function finishIntro() {
     clearTimeout(startupTimeout);
     if (active === intro) releaseActive();
-    if (drive.open) drive.close();
-    drive.classList.remove("leaving");
-    root.classList.remove("intro-pending");
+    drive.hidden = true;
+    root.classList.remove("intro-pending", "drive-active");
     root.classList.add("hero-reveal");
     queueViewport();
   }
@@ -65,12 +63,12 @@
     if (video === active) releaseActive();
   }
 
-  async function play(video, audible = sound) {
+  async function play(video) {
     clearTimeout(startupTimeout);
     releaseActive();
     active = video;
     const id = playbackId;
-    video.muted = !audible;
+    video.muted = !sound || waitingForGesture;
     video.volume = 0.77;
     if (!video.hasAttribute("src")) video.src = video.dataset.film;
     if (video.readyState) video.currentTime = 0;
@@ -82,39 +80,56 @@
     } catch (error) {
       if (id !== playbackId || active !== video) return;
       if (error.name !== "NotAllowedError" || video.muted) return showStill(video);
-      setSound(false, false);
+      waitingForGesture = true;
+      video.muted = true;
       try { await video.play(); } catch { if (id === playbackId) showStill(video); }
     }
     if (id !== playbackId || active !== video) return;
     clearTimeout(startupTimeout);
-    setSound(!video.muted, false);
   }
 
+  function unlockSound(event) {
+    if (!event.isTrusted || !sound || !waitingForGesture || event.target.closest?.("[data-cinema-sound]")) return;
+    waitingForGesture = false;
+    resumeAudibly();
+  }
+
+  function resumeAudibly() {
+    const video = active;
+    if (!video || video.ended || brief.open || document.hidden) return;
+    video.muted = !sound;
+    video.play().catch(error => {
+      if (video !== active || !sound || error.name !== "NotAllowedError") return;
+      waitingForGesture = true;
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+  }
+  document.addEventListener("click", unlockSound, true);
+  document.addEventListener("keydown", unlockSound, true);
   for (const button of soundButtons) button.addEventListener("click", () => {
+    waitingForGesture = false;
     setSound(!sound, true);
-    if (active && !active.ended && !brief.open) active.play().catch(() => setSound(false, false));
+    resumeAudibly();
   });
 
-  function startIntro(manual) {
-    if (drive.open) return;
-    drive.classList.remove("leaving");
+  function startIntro() {
+    if (!drive.hidden) return;
     root.classList.remove("hero-reveal");
-    drive.showModal();
+    drive.hidden = false;
+    root.classList.add("drive-active");
     root.classList.remove("intro-pending");
     document.dispatchEvent(new Event("coastal-drive-start"));
-    play(intro, manual ? sound : tryAudibleIntro);
+    play(intro);
   }
 
-  intro.addEventListener("timeupdate", () => {
-    if (drive.open && intro.duration - intro.currentTime < 0.43) drive.classList.add("leaving");
-  });
   intro.addEventListener("ended", finishIntro);
-  intro.addEventListener("error", () => { if (drive.open) finishIntro(); });
-  drive.addEventListener("cancel", event => { event.preventDefault(); finishIntro(); });
+  intro.addEventListener("error", () => { if (!drive.hidden) finishIntro(); });
+  document.addEventListener("keydown", event => { if (!drive.hidden && event.key === "Escape") finishIntro(); });
   document.querySelector("#skip-drive").addEventListener("click", finishIntro);
   document.querySelector("#replay-drive").addEventListener("click", () => {
     document.querySelector("#overview").scrollIntoView({behavior: "instant"});
-    startIntro(true);
+    startIntro();
   });
 
   function startPanel(panel, manual = false) {
@@ -149,7 +164,11 @@
 
   function updateViewport() {
     scrollFrame = 0;
-    if (document.hidden || drive.open || brief.open) return;
+    if (document.hidden || brief.open) return;
+    if (!drive.hidden) {
+      if (document.querySelector("#overview").getBoundingClientRect().bottom < innerHeight * .25) finishIntro();
+      return;
+    }
     let best = null;
     let bestRatio = 0;
     const top = document.querySelector("header").offsetHeight;
@@ -165,10 +184,6 @@
       }
       const ratio = visible / Math.min(rect.height, innerHeight - top);
       if (ratio > bestRatio) { best = panel; bestRatio = ratio; }
-      if (!reduced.matches) {
-        const drift = Math.max(-1, Math.min(1, (rect.top - top) / innerHeight));
-        panel.style.setProperty("--drift", (drift * -13).toFixed(2) + "px");
-      }
     }
     const previous = active?.closest(".mission-panel");
     if (previous && (!best || bestRatio < .08 || (previous !== best && bestRatio >= .56))) {
@@ -214,7 +229,7 @@
     });
   }
   function suspend() {
-    if (drive.open) finishIntro();
+    if (!drive.hidden) finishIntro();
     else if (active && !active.ended) active.pause();
   }
   function resume() {
@@ -232,12 +247,12 @@
   document.querySelector(".filters").addEventListener("click", queueViewport);
   reduced.addEventListener("change", () => {
     if (reduced.matches) {
-      if (drive.open) finishIntro();
+      if (!drive.hidden) finishIntro();
       if (active) showStill(active);
     }
     queueViewport();
   });
   root.classList.add("cinema-ready");
-  if (root.classList.contains("intro-pending")) startIntro(false);
+  if (root.classList.contains("intro-pending")) startIntro();
   else queueViewport();
 })();

@@ -102,29 +102,6 @@
 .time { order: 0; }
 .replay { order: 1; }
 .radio { order: 2; }
-.intro-pending body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  background: #30233b url("assets/film/coast-road.webp") center/cover;
-  pointer-events: none;
-}
-#drive {
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  max-height: none;
-  position: fixed;
-  inset: 0;
-  padding: 0;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  overflow: hidden;
-  background: #292031 url("assets/film/coast-road.webp") center/cover no-repeat;
-}
-#drive::backdrop { background: #181320; backdrop-filter: none; }
 .hero-reveal .hero-copy { animation: reveal-name .58s ease-out both; }
 @keyframes reveal-name { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 680px) {

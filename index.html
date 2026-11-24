@@ -7,13 +7,13 @@
   <meta name="description" content="Explore Dinesh Karthick’s Azure infrastructure, cloud engineering experience and applied AI projects from Chennai.">
   <meta property="og:title" content="Dinesh Karthick · Coastal Ops"><meta property="og:description" content="A Chennai field guide to my cloud engineering and applied AI work.">
   <link rel="icon" href="assets/dk.svg"><link rel="preload" as="image" href="assets/coast.webp"><link rel="preload" as="font" href="assets/display.ttf" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css"><link rel="stylesheet" href="cinema.css">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chapters.css?v=arrival"><link rel="stylesheet" href="cinema.css?v=arrival">
   <script>
     if ((!location.hash || location.hash === "#overview") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.documentElement.classList.add("intro-pending");
       setTimeout(() => document.documentElement.classList.remove("intro-pending"), 8500);
     }
-  </script><script src="cinema.js" defer></script><script src="app.js" defer></script>
+  </script><script src="cinema.js?v=arrival" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -32,12 +32,17 @@
 <header><div class="shell navrow">
   <a class="brand" href="#overview" aria-label="Dinesh Karthick home"><span class="monogram">DK</span><span>COASTAL OPS</span></a>
   <nav id="nav" aria-label="Main navigation"><a href="#overview" aria-current="location">Overview</a><a href="#missions">Missions</a><a href="#loadout">Loadout</a><a href="#profile">Profile</a></nav>
-  <button class="sound-switch" data-cinema-sound aria-pressed="false" aria-label="Enable cinematic sound" title="Enable cinematic sound"><svg aria-hidden="true"><use href="#speaker"/></svg><span>Sound off</span></button>
+  <button class="sound-switch" data-cinema-sound aria-pressed="true" aria-label="Mute cinematic sound" title="Mute cinematic sound"><svg aria-hidden="true"><use href="#speaker"/></svg><span>Sound on</span></button>
   <a class="contact-nav" href="#contact"><svg><use href="#mail"/></svg>Contact</a>
   <button id="menu-button" class="menu-button" aria-controls="nav" aria-expanded="false" aria-label="Open navigation"><svg><use href="#menu"/></svg></button>
 </div></header>
 <main>
 <section id="overview" class="hero" aria-labelledby="hero-title">
+  <div class="hero-stage" aria-hidden="true">
+    <img src="assets/coast.webp" alt="" fetchpriority="high">
+    <video id="drive-film" data-film="assets/film/drive.mp4?v=arrival" poster="assets/film/coast-road.webp?v=arrival" playsinline muted preload="none" tabindex="-1"></video>
+  </div>
+  <div id="drive" hidden><button type="button" id="skip-drive">Skip intro</button></div>
   <div class="shell hero-inner"><div class="hero-copy">
     <div class="eyebrow hero-kicker"><i></i> Player profile</div>
     <h1 id="hero-title"><span>Dinesh</span><span>Karthick</span></h1>
@@ -57,8 +62,10 @@
   <h2 id="mission-title">Mission files<span>.</span></h2></div>
   <div class="filters" role="group" aria-label="Filter projects"><button aria-pressed="true" data-filter="all">All missions</button><button aria-pressed="false" data-filter="azure">Azure</button><button aria-pressed="false" data-filter="aws">AWS</button><button aria-pressed="false" data-filter="software">Software</button></div></div>
   <p class="sr" id="filter-status" aria-live="polite"></p><article class="mission-panel policy" data-platform="azure" aria-labelledby="title-policy">
-    <img class="scene-image" src="assets/policy.webp" alt="" loading="lazy" decoding="async">
-    <video class="scene-film" data-film="assets/film/policy.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="scene-frame" aria-hidden="true">
+      <img class="scene-image" src="assets/policy.webp" alt="" loading="lazy" decoding="async">
+      <video class="scene-film" data-film="assets/film/policy.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 01</span><span>Azure · Retrieval-augmented AI</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
       <div class="mission-text"><p class="scene-stack">Azure AI Search / Foundry / FastAPI</p>
@@ -69,8 +76,10 @@
       <div class="scene-foot"><span>26 unit tests</span><span>8 policy documents</span></div>
     </div></article>
 <article class="mission-panel memory" data-platform="aws" aria-labelledby="title-memory">
-    <img class="scene-image" src="assets/memory.webp" alt="" loading="lazy" decoding="async">
-    <video class="scene-film" data-film="assets/film/memory.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="scene-frame" aria-hidden="true">
+      <img class="scene-image" src="assets/memory.webp" alt="" loading="lazy" decoding="async">
+      <video class="scene-film" data-film="assets/film/memory.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 02</span><span>AWS · Serverless AI</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
       <div class="mission-text"><p class="scene-stack">Bedrock / Lambda / DynamoDB</p>
@@ -81,8 +90,10 @@
       <div class="scene-foot"><span>3 memory layers</span><span>2 model routes</span></div>
     </div></article>
 <article class="mission-panel metro" data-platform="aws" aria-labelledby="title-metro">
-    <img class="scene-image" src="assets/metro.webp" alt="" loading="lazy" decoding="async">
-    <video class="scene-film" data-film="assets/film/metro.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="scene-frame" aria-hidden="true">
+      <img class="scene-image" src="assets/metro.webp" alt="" loading="lazy" decoding="async">
+      <video class="scene-film" data-film="assets/film/metro.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 03</span><span>AWS · Voice applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
       <div class="mission-text"><p class="scene-stack">Whisper / Twilio / EC2</p>
@@ -93,8 +104,10 @@
       <div class="scene-foot"><span>4 languages</span><span>24 stations</span></div>
     </div></article>
 <article class="mission-panel zoo" data-platform="software" aria-labelledby="title-zoo">
-    <img class="scene-image" src="assets/zoo.webp" alt="" loading="lazy" decoding="async">
-    <video class="scene-film" data-film="assets/film/zoo.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="scene-frame" aria-hidden="true">
+      <img class="scene-image" src="assets/zoo.webp" alt="" loading="lazy" decoding="async">
+      <video class="scene-film" data-film="assets/film/zoo.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 04</span><span>Full-stack · Database applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
       <div class="mission-text"><p class="scene-stack">Node.js / PostgreSQL / JavaScript</p>
@@ -105,8 +118,10 @@
       <div class="scene-foot"><span>Web application</span><span>Relational data</span></div>
     </div></article>
 <article class="mission-panel showroom" data-platform="software" aria-labelledby="title-showroom">
-    <img class="scene-image" src="assets/showroom.webp" alt="" loading="lazy" decoding="async">
-    <video class="scene-film" data-film="assets/film/showroom.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="scene-frame" aria-hidden="true">
+      <img class="scene-image" src="assets/showroom.webp" alt="" loading="lazy" decoding="async">
+      <video class="scene-film" data-film="assets/film/showroom.mp4" playsinline muted preload="none" aria-hidden="true" tabindex="-1"></video>
+    </div>
     <div class="shell mission-inner">
       <div class="scene-slate"><span>Mission file / 05</span><span>Desktop · Database applications</span><button type="button" class="scene-replay" aria-label="Replay this scene" title="Replay this scene"><svg aria-hidden="true"><use href="#repeat"/></svg></button></div>
       <div class="mission-text"><p class="scene-stack">Python / Tkinter / SQLite</p>
@@ -139,8 +154,4 @@
 </main>
 <footer><div class="shell"><span>© 2026 Dinesh Karthick M S</span><a href="#overview">Back to overview</a></div></footer>
 <dialog id="brief" aria-labelledby="brief-title"><div class="brief-art"><img id="brief-image" alt=""><button id="close-brief" aria-label="Close mission brief" autofocus>×</button></div><div class="brief-copy"><div class="eyebrow" id="brief-label"></div><h2 id="brief-title"></h2><div id="brief-content"></div></div></dialog>
-<dialog id="drive" aria-label="Coastal drive-in animation">
-  <video id="drive-film" data-film="assets/film/drive.mp4" poster="assets/film/coast-road.webp" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
-  <div class="drive-top"><button data-cinema-sound aria-label="Enable cinematic sound" aria-pressed="false"><svg aria-hidden="true"><use href="#speaker"/></svg><span>Sound off</span></button><button type="button" id="skip-drive">Skip intro</button></div>
-</dialog>
 </body></html>
