@@ -91,6 +91,11 @@
 .intro-pending #drive-film, .drive-active #drive-film { opacity: 1; }
 .intro-pending .hero-copy { visibility: hidden; }
 #drive { position: absolute; top: 18px; right: 5%; z-index: 2; }
+#drive #launch-drive { display: none; }
+.drive-waiting #drive { display: flex; flex-wrap: wrap; justify-content: end; gap: 8px; }
+.drive-waiting #drive #launch-drive { display: inline-flex; background: var(--mint); color: #101019; border-color: var(--mint); }
+#launch-drive svg { width: 17px; height: 17px; }
+.drive-waiting #start-audio { display: none; }
 .mission-panel { background: var(--wash) center / cover, #15131c; }
 .mission-panel { scroll-margin-top: -10px; }
 .policy { --wash: url("assets/film/policy-wash.webp"); }

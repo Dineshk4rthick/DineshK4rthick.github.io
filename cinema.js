@@ -66,7 +66,7 @@
     clearTimeout(startupTimeout);
     if (active === intro) releaseActive();
     drive.hidden = true;
-    root.classList.remove("intro-pending", "drive-active");
+    root.classList.remove("intro-pending", "drive-active", "drive-waiting");
     stopTitles();
     queueViewport();
   }
@@ -105,11 +105,19 @@
   function startIntro() {
     if (!drive.hidden) return;
     drive.hidden = false;
-    root.classList.add("drive-active");
     root.classList.remove("intro-pending");
+    root.classList.add("drive-waiting");
+    coastalAudio.prepareIntro();
+    runReadyIntro();
+  }
+  function runReadyIntro() {
+    if (!root.classList.contains("drive-waiting") || !coastalAudio.canStartIntro() || document.hidden) return;
+    root.classList.remove("drive-waiting");
+    root.classList.add("drive-active");
     startTitles();
     play(intro);
   }
+  document.addEventListener("coastal-audio-readychange", runReadyIntro);
 
   intro.addEventListener("ended", finishIntro);
   intro.addEventListener("error", () => { if (!drive.hidden) finishIntro(); });

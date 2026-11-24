@@ -5,12 +5,15 @@ const coastalAudio = (() => {
   const master = document.querySelector("[data-cinema-sound]");
   const radio = document.querySelector("#radio-button");
   const start = document.querySelector("#start-audio");
+  const launch = document.querySelector("#launch-drive");
   const buffers = new Map();
+  const failed = new Set();
   // A file:// preview cannot fetch sibling tracks for Web Audio decoding.
   const fileRadio = location.protocol === "file:" ? new Audio("assets/audio/coastal-fm.m4a") : null;
   if (fileRadio) fileRadio.loop = true;
   let context, radioGain, radioSource, sceneSource, scene;
   let advancing = false;
+  let lastReady;
   let enabled = preference("coastal-cinema-sound");
   let tuned = preference("coastal-fm");
 
@@ -22,25 +25,46 @@ const coastalAudio = (() => {
     try { localStorage.setItem(key, value ? "on" : "off"); } catch {}
   }
   function updateControls() {
-    master.setAttribute("aria-pressed", String(enabled));
-    master.title = enabled ? "Mute site audio" : "Enable site audio";
+    const running = context?.state === "running";
+    const locked = enabled && !running;
+    const retry = enabled && ((tuned && failed.has("coastal-fm")) || (scene && failed.has(trackName(scene))) || (document.documentElement.classList.contains("drive-waiting") && failed.has("drive")));
+    const needsStart = locked || Boolean(retry);
+    master.dataset.action = needsStart ? "start" : "toggle";
+    radio.dataset.action = tuned && (needsStart || !enabled) ? "start" : "toggle";
+    master.setAttribute("aria-pressed", String(enabled && !needsStart));
+    master.title = needsStart ? "Start site audio" : enabled ? "Mute site audio" : "Enable site audio";
     master.setAttribute("aria-label", master.title);
-    master.querySelector("span").textContent = enabled ? "Sound on" : "Sound off";
-    radio.setAttribute("aria-pressed", String(tuned));
-    radio.setAttribute("aria-label", tuned ? "Turn Coastal FM off" : "Turn Coastal FM on");
-    document.querySelector("#radio-state").textContent = tuned ? "On" : "Off";
-    start.hidden = !enabled || context?.state === "running" || document.hidden;
+    master.querySelector("span").textContent = needsStart ? "Start sound" : enabled ? "Sound on" : "Sound off";
+    const fmPlaying = fileRadio ? !fileRadio.paused && running && enabled : Boolean(radioSource && running && enabled);
+    radio.setAttribute("aria-pressed", String(fmPlaying));
+    radio.setAttribute("aria-label", radio.dataset.action === "start" ? "Start Coastal FM" : tuned ? "Turn Coastal FM off" : "Turn Coastal FM on");
+    document.querySelector("#radio-state").textContent = fmPlaying ? "On" : tuned && enabled ? "Ready" : "Off";
+    start.hidden = !needsStart || document.hidden;
+    const ready = canStartIntro();
+    if (ready !== lastReady) {
+      lastReady = ready;
+      queueMicrotask(() => document.dispatchEvent(new Event("coastal-audio-readychange")));
+    }
   }
-  function prepare(track) {
+  function canStartIntro() {
+    return !enabled || (context?.state === "running" && Boolean(fileRadio || buffers.get("drive")));
+  }
+  function prepare(track, attempt = 0) {
     if (fileRadio || !context || buffers.has(track)) return;
+    failed.delete(track);
     buffers.set(track, null);
-    fetch("assets/audio/" + track + ".m4a").then(response => {
+    fetch("assets/audio/" + track + ".m4a" + (track === "metro" ? "?v=quieter" : "")).then(response => {
       if (!response.ok) throw Error(response.status);
       return response.arrayBuffer();
     }).then(bytes => context.decodeAudioData(bytes)).then(buffer => {
       buffers.set(track, buffer);
       update();
-    }).catch(() => buffers.delete(track));
+    }).catch(() => {
+      buffers.delete(track);
+      failed.add(track);
+      updateControls();
+      if (!attempt) setTimeout(() => prepare(track, 1), 700);
+    });
   }
   function stop(source) {
     if (source) { source.stop(); source.disconnect(); }
@@ -50,7 +74,6 @@ const coastalAudio = (() => {
     return video.id === "drive-film" ? "drive" : video.closest("article").querySelector("[data-mission]").dataset.mission;
   }
   function update() {
-    updateControls();
     const audible = enabled && context?.state === "running" && !document.hidden;
     const score = buffers.get("coastal-fm");
     if (audible && tuned && score && !radioSource) {
@@ -69,6 +92,7 @@ const coastalAudio = (() => {
       if (audible && tuned) {
         if (fileRadio.paused) fileRadio.play().catch(() => {});
       } else fileRadio.pause();
+      updateControls();
       return;
     }
     if (!playing) sceneSource = stop(sceneSource);
@@ -83,6 +107,7 @@ const coastalAudio = (() => {
       }
     }
     if (radioGain) radioGain.gain.setTargetAtTime(playing ? .16 : .60, context.currentTime, .10);
+    updateControls();
   }
   function wake() {
     if (!enabled || document.hidden) return;
@@ -97,6 +122,7 @@ const coastalAudio = (() => {
     // Calling resume inside the original input event also unlocks future scenes.
     if (context.state !== "running") context.resume().then(update, updateControls);
     if (tuned) prepare("coastal-fm");
+    if (document.documentElement.classList.contains("drive-waiting")) prepare("drive");
     if (scene) prepare(trackName(scene));
     update();
   }
@@ -122,12 +148,33 @@ const coastalAudio = (() => {
       update();
     });
   }
+  // Preserve what the visitor pressed if the browser unlocks between down and click.
+  const pressedAction = new WeakMap();
+  for (const button of [master, radio]) {
+    const remember = () => pressedAction.set(button, button.dataset.action);
+    button.addEventListener("pointerdown", remember);
+    button.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") remember(); });
+    button.addEventListener("pointercancel", () => pressedAction.delete(button));
+    button.addEventListener("blur", () => pressedAction.delete(button));
+  }
+  function requestedStart(button) {
+    const action = pressedAction.get(button) ?? button.dataset.action;
+    pressedAction.delete(button);
+    return action === "start";
+  }
+  start.addEventListener("click", wake);
+  launch.addEventListener("click", wake);
   master.addEventListener("click", () => {
+    if (requestedStart(master)) return wake();
     enabled = !enabled;
     save("coastal-cinema-sound", enabled);
     if (enabled) wake(); else update();
   });
   radio.addEventListener("click", () => {
+    if (requestedStart(radio)) {
+      if (!enabled) { enabled = true; save("coastal-cinema-sound", true); }
+      return wake();
+    }
     tuned = !tuned;
     save("coastal-fm", tuned);
     if (tuned && !enabled) { enabled = true; save("coastal-cinema-sound", true); }
@@ -135,7 +182,8 @@ const coastalAudio = (() => {
     update();
   });
   function gesture(event) {
-    if (!event.isTrusted || context?.state === "running" || event.target.closest?.("[data-cinema-sound],#radio-button")) return;
+    if (!event.isTrusted || (context?.state === "running" && !failed.size) ||
+        event.target.closest?.("[data-cinema-sound],#radio-button,#start-audio,#launch-drive,#skip-drive")) return;
     wake();
   }
   for (const event of ["pointerdown","pointerup","touchend","keydown","click"])
@@ -144,5 +192,5 @@ const coastalAudio = (() => {
   window.addEventListener("pageshow", wake);
   updateControls();
   wake();
-  return {select};
+  return {select, canStartIntro, prepareIntro: () => { if (enabled) prepare("drive"); }};
 })();
